@@ -25,57 +25,8 @@
                             </div>
                         </div>
                     @endif
-                    <div class="w-full overflow-x-auto">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Cliente</th>
-                                    <th>Contador</th>
-                                    <th>Monto</th>
-                                    <th>Estado</th>
-                                    <th>Fecha</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($receipts as $receipt)
-                                    <tr>
-                                        <td class="text-nowrap">{{ strtoupper($receipt->client->full_name) }}</td>
-                                        <td class="text-nowrap">{{ strtoupper($receipt->counter->full_name) }}</td>
-                                        <td>$ {{ $receipt->amount }}</td>
-                                        <td>
-                                          @switch($receipt->status)
-                                            @case('paid')
-                                              <span class="badge badge-soft badge-success text-xs">Pagado</span>
-                                              @break
-                                            
-                                            @case('pending')
-                                              <span class="badge badge-soft badge-warning text-xs">Pendiente</span>
-                                              @break
-                                            
-                                            @case('canceled')
-                                              <span class="badge badge-soft badge-danger text-xs">Cancelado</span>
-                                              @break  
-                                          @endswitch
-                                        </td>
-                                        <td class="text-nowrap">
-                                            {{ \Carbon\Carbon::parse($receipt->payment_date)->format('d/m/Y') }}</td>
-                                        <td>
-                                            <a class="btn btn-circle btn-text btn-sm"
-                                                aria-label="Action button" href="{{ route('receipts.show', $receipt->receipt_number) }}"><span
-                                                    class="icon-[tabler--eye] size-5"></span></a>
-                                            <a class="btn btn-circle btn-text btn-sm"
-                                                aria-label="Action button" href="{{ route('pdf.download', $receipt->id) }}"><span
-                                                    class="icon-[tabler--download] size-5"></span></a>
-                                            <a class="btn btn-circle btn-text btn-sm"
-                                                aria-label="Action button" href="{{ route('pdf.send', $receipt->id) }}"><span
-                                                    class="icon-[tabler--send] size-5"></span></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                    
+                    <livewire:receipts-table />
                 </div>
             </div>
         </div>
